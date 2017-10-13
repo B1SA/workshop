@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="SAP_CA_SALES" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <descriptions/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="38"/>
+  <dataSources>
+    <DataSource id="OCRD" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SBODEMOUS" columnObjectName="OCRD"/>
+    </DataSource>
+    <DataSource id="OCRG" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SBODEMOUS" columnObjectName="OCRG"/>
+    </DataSource>
+    <DataSource id="OINV" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SBODEMOUS" columnObjectName="OINV"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CardCode"/>
+        <viewAttribute id="GroupName"/>
+        <viewAttribute id="GroupCode"/>
+        <viewAttribute hidden="true" id="JOIN$GroupCode$GroupCode"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#OCRD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CardCode" source="CardCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$GroupCode$GroupCode" source="GroupCode"/>
+      </input>
+      <input node="#OCRG">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GroupName" source="GroupName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GroupCode" source="GroupCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$GroupCode$GroupCode" source="GroupCode"/>
+      </input>
+      <joinAttribute name="JOIN$GroupCode$GroupCode"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="GroupCode"/>
+        <viewAttribute id="GroupName"/>
+        <viewAttribute id="DocTotal"/>
+        <viewAttribute id="GrosProfit"/>
+        <viewAttribute hidden="true" id="JOIN$CardCode$CardCode"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GroupCode" source="GroupCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GroupName" source="GroupName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CardCode$CardCode" source="CardCode"/>
+      </input>
+      <input node="#OINV">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocTotal" source="DocTotal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GrosProfit" source="GrosProfit"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CardCode$CardCode" source="CardCode"/>
+      </input>
+      <joinAttribute name="JOIN$CardCode$CardCode"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="GroupCode" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GroupCode"/>
+        <keyMapping columnObjectName="Join_2" columnName="GroupCode"/>
+      </attribute>
+      <attribute id="GroupName" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GroupName"/>
+        <keyMapping columnObjectName="Join_2" columnName="GroupName"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="DocTotal" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="DocTotal"/>
+        <measureMapping columnObjectName="Join_2" columnName="DocTotal"/>
+      </measure>
+      <measure id="GrosProfit" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="GrosProfit"/>
+        <measureMapping columnObjectName="Join_2" columnName="GrosProfit"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="10" y="240"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="50" y="170"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

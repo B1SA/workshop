@@ -1,0 +1,16 @@
+service {
+
+    "_SYS_BIC"."B1_XSWorkshop.model/SAP_CA_SALES" as "SalesByGroup" keys ("GroupCode");
+
+    "SBODEMOUS"."OUSR" as "Users"
+    with ("USERID", "USER_CODE","U_NAME")
+    create forbidden
+    update forbidden
+    delete forbidden;
+
+    "SBODEMOUS"."OITM" as "Items"
+    create forbidden
+    update forbidden
+    delete forbidden; 
+
+}
