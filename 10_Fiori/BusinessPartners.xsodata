@@ -1,4 +1,4 @@
-service{    
+service{    
         "SBODEMOUS"."OCRD" as "BusinessPartner"     
         with("CardCode", "CardName", "CardType", "Balance", "Currency")    
         navigates ("BP_BPAddress" as "BPAddress","BP_Contacts" as "ContactPersons")    
