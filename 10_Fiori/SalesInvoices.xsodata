@@ -1,4 +1,4 @@
-    service{ 
+service{ 
     "SBODEMOUS"."OINV" as "doc" navigates ("ar_doc" as "ar_doc") 
     create forbidden
     update forbidden

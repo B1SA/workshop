@@ -1,5 +1,3 @@
-
-
 function getBPJSON(bpType){
 	//Initialize connection
 	var conn = $.hdb.getConnection();

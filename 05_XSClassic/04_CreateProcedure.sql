@@ -1,4 +1,3 @@
-
 /* Create a TABLE TYPE for the procedure results */
 CREATE TYPE "SBODEMOUS"."BPDETAILS" AS TABLE (
             "CardCode" NVARCHAR(15),
