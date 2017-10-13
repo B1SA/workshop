@@ -1,0 +1,14 @@
+    service{ 
+    "SBODEMOUS"."OINV" as "doc" navigates ("ar_doc" as "ar_doc") 
+    create forbidden
+    update forbidden
+    delete forbidden;
+
+    "SBODEMOUS"."INV1" as "lines"
+    with ("DocEntry","LineNum","ItemCode","Description", "Quantity", "Price","LineTotal")
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    association "ar_doc" principal "lines"("DocEntry") multiplicity "*" dependent "doc"("DocEntry") multiplicity "*";
+}
