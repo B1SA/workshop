@@ -1,0 +1,12 @@
+{
+    "exposed" : true,
+    "authentication" : null,
+    "force_ssl" : false,             
+    "enable_etags" : true, 
+    "prevent_xsrf" : false,          
+    "cors" :                        
+         {
+          "enabled" : true
+         }, 
+    "cache_control" : "no-cache, no-store"
+}

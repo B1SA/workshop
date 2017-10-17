@@ -1,0 +1,20 @@
+{
+  "generation": [
+    {
+      "templateId": "fioriexttemplate.starterApplication",
+      "templateVersion": "1.4.0",
+      "dateTimeStamp": "Thu, 10 Sep 2015 13:20:45 GMT"
+    }
+  ],
+  "mockpreview": {
+    "mockUri": "",
+    "loadJSONFiles": false
+  },
+  "translation": {
+    "translationDomain": "",
+    "supportedLanguages": "en,fr,de",
+    "defaultLanguage": "en",
+    "defaultI18NPropertyFile": "i18n.properties",
+    "resourceModelName": "i18n"
+  }
+}
