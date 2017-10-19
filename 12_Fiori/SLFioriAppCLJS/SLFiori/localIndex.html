@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<!-- Copyright (c) 2014 SAP AG, All Rights Reserved -->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Example - Development Start Page</title>
+<!-- Bootstrap the unified shell in sandbox mode with a minimal shell renderer for standalone usage.
+     The renderer is specified in the global Unified Shell configuration object "sap-ushell-config".
+     The used renderer "fiorisandbox" is a minimal implementation without visible UI elements, but
+     which supports cross-application navigation. It also serves as an example for a custom shell
+     renderer implementation.
+     The navigation target resolution service is configured in a way that the empty URL hash is
+     resolved to our own application.
+     This example uses relative path references for the SAPUI5 resources and test-resources;
+     it might be necessary to adopt them depending on the target runtime platform.
+     The sandbox platform is restricted to development or demo use cases and must NOT be used
+     for productive scenarios.
+-->
+<script type="text/javascript">
+    window["sap-ushell-config"] = {
+        defaultRenderer : "fiorisandbox",
+        services: {
+            NavTargetResolution: {
+                // navigation target resolution service is configured to resolve the empty location hash to the our application
+                config : {
+                    resolveLocal : [ {
+                        "linkId" : "",
+                        resolveTo : {
+                            additionalInformation : "SAPUI5.Component=SLFiori",
+                            applicationType : "URL",
+                            url : "./" + window.location.search // pass URL query parameters to appplication
+                        }
+                    }]
+                }
+            }
+        }   // services
+    };
+</script>
+<script src="test-resources/sap/ushell/bootstrap/sandbox.js" id="sap-ushell-bootstrap"></script>
+<!--  Bootstrap the UI5 core library -->
+<script id="sap-ui-bootstrap"
+    src="resources/sap-ui-core.js" data-sap-ui-libs="sap.m, sap.me"
+    data-sap-ui-theme="sap_bluecrystal"
+    data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-compatVersion="1.16"
+    data-sap-ui-resourceroots='{"SLFiori": "./"}'>
+</script>
+<!-- Create the unified shell default renderer control and add it to the page -->
+<script type="text/javascript">
+    sap.ui.getCore().attachInitEvent(function() {
+        sap.ushell.Container.createRenderer().placeAt("content");
+    });
+</script>
+</head>
+<!-- UI Content -->
+<body class="sapUiBody" id="content">
+</body>
+</html>

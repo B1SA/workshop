@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:DataServices
+        xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema Namespace="BPExplorerApp.OData.BusinessPartner"
+            xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+            xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="BusinessPartnerType">
+                <Key>
+                    <PropertyRef Name="CardCode" />
+                </Key>
+                <Property Name="CardCode" Type="Edm.String" Nullable="false" MaxLength="15" />
+                <Property Name="CardName" Type="Edm.String" MaxLength="100" />
+                <Property Name="CardType" Type="Edm.String" DefaultValue="C" MaxLength="1" />
+                <Property Name="Balance" Type="Edm.Decimal" Precision="21" Scale="6" />
+                <Property Name="Currency" Type="Edm.String" MaxLength="3" />
+                <NavigationProperty Name="BPAddress" Relationship="BPExplorerApp.OData.BusinessPartner.BP_BPAddressType" FromRole="BusinessPartnerPrincipal" ToRole="BPAddressesDependent" />
+                <NavigationProperty Name="ContactPersons" Relationship="BPExplorerApp.OData.BusinessPartner.BP_ContactsType" FromRole="BusinessPartnerPrincipal" ToRole="ContactsDependent" />
+            </EntityType>
+            <EntityType Name="BPAddressesType">
+                <Key>
+                    <PropertyRef Name="Address" />
+                    <PropertyRef Name="CardCode" />
+                    <PropertyRef Name="AdresType" />
+                </Key>
+                <Property Name="Address" Type="Edm.String" Nullable="false" MaxLength="50" />
+                <Property Name="CardCode" Type="Edm.String" Nullable="false" MaxLength="15" />
+                <Property Name="Street" Type="Edm.String" MaxLength="100" />
+                <Property Name="City" Type="Edm.String" MaxLength="100" />
+                <Property Name="Country" Type="Edm.String" MaxLength="3" />
+                <Property Name="State" Type="Edm.String" MaxLength="3" />
+                <Property Name="AdresType" Type="Edm.String" Nullable="false" DefaultValue="S" MaxLength="1" />
+            </EntityType>
+            <EntityType Name="ContactsType">
+                <Key>
+                    <PropertyRef Name="CntctCode" />
+                </Key>
+                <Property Name="CntctCode" Type="Edm.Int32" Nullable="false" />
+                <Property Name="CardCode" Type="Edm.String" Nullable="false" MaxLength="15" />
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="50" />
+                <Property Name="Position" Type="Edm.String" MaxLength="90" />
+                <Property Name="Tel1" Type="Edm.String" MaxLength="20" />
+                <Property Name="Cellolar" Type="Edm.String" MaxLength="50" />
+            </EntityType>
+            <Association Name="BP_BPAddressType">
+                <End Type="BPExplorerApp.OData.BusinessPartner.BusinessPartnerType" Role="BusinessPartnerPrincipal" Multiplicity="1"/>
+                <End Type="BPExplorerApp.OData.BusinessPartner.BPAddressesType" Role="BPAddressesDependent" Multiplicity="*"/>
+            </Association>
+            <Association Name="BP_ContactsType">
+                <End Type="BPExplorerApp.OData.BusinessPartner.BusinessPartnerType" Role="BusinessPartnerPrincipal" Multiplicity="1"/>
+                <End Type="BPExplorerApp.OData.BusinessPartner.ContactsType" Role="ContactsDependent" Multiplicity="*"/>
+            </Association>
+            <EntityContainer Name="BusinessPartner" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="BusinessPartner" EntityType="BPExplorerApp.OData.BusinessPartner.BusinessPartnerType" />
+                <EntitySet Name="BPAddresses" EntityType="BPExplorerApp.OData.BusinessPartner.BPAddressesType" />
+                <EntitySet Name="Contacts" EntityType="BPExplorerApp.OData.BusinessPartner.ContactsType" />
+                <AssociationSet Name="BP_BPAddress" Association="BPExplorerApp.OData.BusinessPartner.BP_BPAddressType">
+                    <End Role="BusinessPartnerPrincipal" EntitySet="BusinessPartner"/>
+                    <End Role="BPAddressesDependent" EntitySet="BPAddresses"/>
+                </AssociationSet>
+                <AssociationSet Name="BP_Contacts" Association="BPExplorerApp.OData.BusinessPartner.BP_ContactsType">
+                    <End Role="BusinessPartnerPrincipal" EntitySet="BusinessPartner"/>
+                    <End Role="ContactsDependent" EntitySet="Contacts"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

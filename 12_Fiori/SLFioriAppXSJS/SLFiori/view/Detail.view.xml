@@ -1,0 +1,221 @@
+<mvc:View 
+	controllerName="SLFiori.view.Detail"
+	xmlns="sap.m" 
+	xmlns:form="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
+	<Page 
+		id="detailsPage"
+		title="More Info about Sales Order"
+		class="sapUiFioriObjectPage"  
+		showNavButton="{device>/isPhone}" 
+		navButtonPress="handleNavButtonPress">
+	
+		<ObjectHeader id="header"
+			 title="{CardName}"
+			 number="{DocTotal}"
+			 numberUnit="{DocCurrency}">
+			
+			<customData id="customData1">
+                <core:CustomData id="coreCustomData1" key="sapDtResourcePath" value="Items"></core:CustomData>
+            </customData>
+			
+			<attributes id="detailsAttributes">
+				<ObjectAttribute id="ATTR" text="Open Sales order - detailed Information" />
+			</attributes>
+		</ObjectHeader>
+		
+		<IconTabBar 
+			id="iconTabBar"
+			expanded="{device>/isNoPhone}" >
+			<customData id="customData2">
+                <core:CustomData id="coreCustomData2" key="sapDtResourcePath" value="Items"></core:CustomData>
+            </customData>
+            
+           	<!-- TO BE MODIFIED -->
+			<!-- You might need to adjust the attribute text of <Text> inside the two <form:SimpleForm> below, based on your own business logic -->
+			<!-- TO BE MODIFIED -->						
+			<items id="detailsItems">
+				<IconTabFilter id="iconTabFilter1"
+					icon="sap-icon://hint">
+					<form:SimpleForm
+						id="form1"
+						layout="ResponsiveGridLayout"
+						minWidth="1024" >
+						<core:Title id="title1" text="Order Details" />
+						
+						<Label id="label1" text="DocEntry">
+							<customData id="customData3">
+								<core:CustomData id="coreCustomData3" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Label>
+						
+						<Text id="text1" text="{DocEntry}" >
+							<customData id="customData4">
+								<core:CustomData id="coreCustomData4" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Text>
+						
+						<Label id="label2" text="DocumentStatus">
+							<customData id="customData5">
+								<core:CustomData id="coreCustomData5" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Label>
+						
+						<Text id="text2" text="{DocumentStatus}" >
+							<customData id="customData6">
+								<core:CustomData id="coreCustomData6" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Text>
+						
+						<Label id="label3" text="Address">
+							<customData id="customData7">
+								<core:CustomData id="coreCustomData7" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Label>
+						
+						<Text id="text3" text="{Address}" >
+							<customData id="customData8">
+								<core:CustomData id="coreCustomData8" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Text>
+						
+						
+						<core:ExtensionPoint name="extIconTabFilterForm1"/>
+						
+					</form:SimpleForm>
+				</IconTabFilter>
+						
+				<IconTabFilter id="iconTabFilter2"
+					icon="sap-icon://display">
+					<form:SimpleForm
+						id="form2"
+						layout="ResponsiveGridLayout"
+						minWidth="1024" >
+						<core:Title id="title2" text="Important Info" />
+						<Label id="label4" text="DocDueDate">
+							<customData id="customData9">
+								<core:CustomData id="coreCustomData9" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Label>
+						
+						<Text id="text4" text="{DocDueDate}" >
+							<customData id="customData10">
+								<core:CustomData id="coreCustomData10" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Text>
+						
+						<Label id="label5" text="VatSum">
+							<customData id="customData11">
+								<core:CustomData id="coreCustomData11" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Label>
+						
+						<Text id="text5" text="{VatSum}" >
+							<customData id="customData12">
+								<core:CustomData id="coreCustomData12" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Text>
+						
+						<Label id="label6" text="DocTotal">
+							<customData id="customData13">
+								<core:CustomData id="coreCustomData13" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Label>
+						
+						<Text id="text6" text="{DocTotal} {DocCurrency}" >
+							<customData id="customData14">
+								<core:CustomData id="coreCustomData14" key="sapDtResourcePath" value="Items"></core:CustomData>
+							</customData>
+						</Text>
+						
+						<core:ExtensionPoint name="extIconTabFilterForm2"/>
+						
+					</form:SimpleForm>
+				</IconTabFilter>
+				
+				<IconTabFilter id="iconTabFilter3"
+					icon="sap-icon://table-view">
+					
+					<!-- TO BE MODIFIED -->
+					<!-- set the below attribute so-called items with the right service identifier -->
+					<!-- In the case below, we bind the Sales Order Document lines -->						
+					<!-- You might need to adjust the attribute text of <Text> inside the <ColumnListItem>, based on your own business logic -->
+					<!-- TO BE MODIFIED -->						
+					<Table id="idItemsTable"
+						inset="false"
+						items="{
+							path: '/DocumentLines',
+							sorter: {
+								path: 'ItemCode'
+							}
+						}">
+						
+						<headerToolbar>
+							<Toolbar>
+								<Title text="Order Items" level="H2"/>
+							</Toolbar>
+						</headerToolbar>
+						
+						<columns>
+							<Column
+								width="12em">
+								<Text text="ItemCode" />
+							</Column>
+							<Column
+								minScreenWidth="Tablet"
+								demandPopin="true">
+								<Text text="ItemDescription" />
+							</Column>
+							<Column
+								minScreenWidth="Tablet"
+								demandPopin="true"
+								hAlign="Right">
+								<Text text="Price" />
+							</Column>
+							<Column
+								minScreenWidth="Tablet"
+								demandPopin="true"
+								hAlign="Center">
+								<Text text="Quantity" />
+							</Column>
+							<Column
+								hAlign="Right">
+								<Text text="DiscountPercent" />
+							</Column>
+						</columns>
+				
+						<items>
+							<ColumnListItem id="idColListItem">
+								<cells>
+									<Text
+										text="{ItemCode}" />
+									<Text
+										text="{ItemDescription}" />
+									<Text
+										text="{Price} {Currency}" />
+									<Text
+										text="{Quantity}" />
+									<Text
+										text="{DiscountPercent} %" />
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		
+		<core:ExtensionPoint name="extDetail"/>
+		
+		<footer id="detailsFooter">
+			<Bar id="bar">
+				<contentRight id="detailsContentRight">
+					<Button id="actionButton" icon="sap-icon://action" press="openActionSheet" />
+					<Button text="Close" type="Accept" press= "handleCloseBtnPress" />
+					<Button text="Cancel" type="Reject" press="handleCancelBtnPress" />
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

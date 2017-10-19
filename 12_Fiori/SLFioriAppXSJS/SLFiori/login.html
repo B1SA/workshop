@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="author" content="SAP AG. Business One" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,follow" />
+  
+  <title>SAP B1 Login Form</title>
+
+  <LINK REL=StyleSheet HREF="style.css" TYPE="text/css" MEDIA=screen>
+  
+    	<script src="libs/jquery.min.js"></script>
+    	<script src="libs/jquery.cookie.js"></script>
+        <script src="libs/webtoolkit.base64.js"></script>
+		<script src="global.js"></script>
+       
+       <script>
+       
+      $(function ()
+      {
+            // Read a page's GET URL variables and return them as an associative array.
+            function $$() {
+                var href = window.location.href;
+                var vars = [], hash;
+                var hashes = href.slice(href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+
+            var pkg = $$().site || "/";
+
+            $("#login").click(function () {
+                var button = $(this);
+
+                var loginInfo = {};
+                loginInfo.UserName = $("#b1user").val();
+                loginInfo.Password = $("#b1pwd").val();
+                loginInfo.CompanyDB = $("#company").val();
+                
+                //Call method through AJAX
+                $.ajax({
+                    type: "POST",
+                    headers:
+                    { 
+                        "Authorization": "Basic " + Base64.encode("USERNAME:PASSWORD")
+                    }, 
+                	xhrFields: {
+                        withCredentials: true
+                    },
+                    url: "xsjs/B1SLLogic.xsjs?cmd=login",
+                    data: JSON.stringify(loginInfo),
+                    beforeSend: function () {
+                        $("#alertContainer").hide();
+                        button.attr("disabled", "disabled");
+
+                        $("input").css("border-color", "");
+                    },
+                    dataType: "json",
+                    crossDomain: true,
+                    success: function (result) {
+                        if (result.error) {
+                            alert(result.error);
+                            return;
+                        }
+                        else
+                        	{
+                        		// B1SESSION cookie
+								B1HSL_RouteID = result.cookies[0].value;
+								document.cookie = result.cookies[1].value;
+								B1HSL_SessionID = document.cookie;
+	     	    				//alert(B1HSL_SessionID);
+	     	    				window.location.href = "index.html";
+                        	}
+                    },
+					error: function (request, textStatus, errorThrown) {
+                        alert("Service Layer Login failed: " + textStatus + " / " + errorThrown );
+                    }
+                });
+           });
+        });
+    </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="login">
+      <h1>
+      	<img src="SAPLogo.gif" align="middle" alt="SAP Logo" style="width:50px;height:3s0px">
+      	Login to SAP B1 App on HANA
+      </h1>
+      <form method="post" action="">
+         	   <p>
+               <label for="company" style="display: block">B1 Company </label>
+               <input type="text" id="company" value="SBODEMOUS" />
+               </p>
+               <p>
+               <label for="b1user" style="display: block">B1 User </label>
+               <input type="text" id="b1user" value="manager" />
+               </p>
+               <p>
+               <label for="b1pwd" style="display: block">B1 Password </label>
+               <input type="password" id="b1pwd" value="1234" />
+			   </p>           
+			   <p>
+               <label for="language" style="display: block">B1 Language </label>
+               <input type="text" id="b1language" value="en-US" />
+               </p>
+                <p class="remember_me">
+          			<label>
+            			<input type="checkbox" name="remember_me" id="remember_me">
+            				Remember me on this computer
+          			</label>
+        		</p>
+               <p class="submit">
+               		<input type="button" value="Login" id="login" />
+               </p>
+      </form>
+    </div>
+    <div class="login-help">
+    </div>
+  </div>
+</body>
+</html>

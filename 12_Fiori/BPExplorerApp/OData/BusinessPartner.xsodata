@@ -1,0 +1,27 @@
+service
+{
+    "SBODEMOUS"."OCRD" as "BusinessPartner" 
+    with("CardCode", "CardName", "CardType", "Balance", "Currency")
+    navigates ("BP_BPAddress" as "BPAddress","BP_Contacts" as "ContactPersons")
+    create forbidden
+    update forbidden 
+    delete forbidden;
+    
+    "SBODEMOUS"."CRD1" as "BPAddresses"
+    with("CardCode","AdresType","Address", "Street", "City", "State", "Country")
+    create forbidden
+    update forbidden 
+    delete forbidden;
+    
+    association "BP_BPAddress" principal "BusinessPartner"("CardCode") 
+    multiplicity "1" dependent "BPAddresses"("CardCode") multiplicity "*";
+    
+    "SBODEMOUS"."OCPR" as "Contacts"
+    with("CardCode","CntctCode", "Name", "Position", "Tel1", "Cellolar", "E_MaiL")
+    create forbidden
+    update forbidden 
+    delete forbidden;
+    
+    association "BP_Contacts" principal "BusinessPartner"("CardCode") 
+    multiplicity "1" dependent "Contacts"("CardCode") multiplicity "*";
+}

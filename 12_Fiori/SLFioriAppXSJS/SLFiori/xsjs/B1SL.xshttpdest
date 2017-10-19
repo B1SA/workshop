@@ -1,0 +1,8 @@
+description = "B1 SL https connection";
+host = "<TODO: Please replace with your Service Layer host>";
+port = 50000;
+authType = none;
+useSSL = true;
+timeout = 0;
+sslHostCheck = true;
+sslAuth = client;

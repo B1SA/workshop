@@ -1,0 +1,73 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:shellfooter="sap.ushell.ui.footerbar" controllerName="SLFiori.view.Master" afterInit="hanldeAfterInit">
+	
+	<Page id="page" title="List of Open Orders">
+		<subHeader id="subHeader">
+			<Bar id="bar1">
+				<contentMiddle id="contentMiddle">
+					<SearchField id="searchField" showRefreshButton="{device>/isNoTouch}"
+						placeholder="Search for Sales Order by Customer" search="handleSearch"
+						tooltip="Search for SO by Customer Name" width="100%">
+					</SearchField>
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+		
+		<content id="content">
+			<!-- TO BE MODIFIED -->
+			<!-- set the below attribute so-called items with your xsodata service identifier -->			
+			<!-- In case of using the B1 Service Layer for reading data, the attribute items must be equal to {/value} -->
+			<!-- You might need to adjust the attribute text of <ObjectAttribute> inside <ObjectListItem>, based on your own business logic -->
+			<!-- TO BE MODIFIED -->						
+			<List id="list" items="{/value}" mode="{device>/listMode}"
+				select="handleSelect" growing="true" growingScrollToLoad="false" growingStarted="onGrowingList" updateStarted="onUpdatingList">
+				 <customData id="customData1">
+                            <core:CustomData id="coreCustomData1" key="sapDtResourcePath" value="Items"></core:CustomData>
+                 </customData>
+                 
+		         <headerToolbar>
+					<Toolbar>
+						<Title text="Sales Orders" level="H2" />
+					</Toolbar>
+				</headerToolbar>
+				
+				 <items id="listItems">
+					<ObjectListItem id="mainListItem" type="{device>/listItemType}"
+					 title="{CardName}"
+					 number="{DocTotal}"
+					 numberUnit="{DocCurrency}"
+					 press="handleSelect">
+						<customData id="customData2">
+                             <core:CustomData id="coreCustomData2" key="sapDtResourcePath" value="Items"></core:CustomData>
+                        </customData>
+						<attributes id="attributes">
+							
+								<ObjectAttribute id="ATTR1" text="{DocEntry}">
+								<customData id="customData3">
+									<core:CustomData id="coreCustomData3" key="sapDtResourcePath" value="Items"></core:CustomData>
+								</customData>
+								</ObjectAttribute>
+							
+							
+								<ObjectAttribute id="ATTR2" text="{DocDate}">
+									<customData id="customData4">
+										<core:CustomData id="coreCustomData4" key="sapDtResourcePath" value="Items"></core:CustomData>
+									</customData>
+								</ObjectAttribute>
+							
+						</attributes>
+					</ObjectListItem>
+				</items>
+			</List>
+		</content>
+		
+		<footer id="footer">
+			<Bar id="bar2">
+				<contentLeft id="contentLeft">
+					<shellfooter:SettingsButton id="settingsButton"></shellfooter:SettingsButton>
+				</contentLeft>
+			</Bar>
+		</footer>
+	</Page>
+	
+</mvc:View>
