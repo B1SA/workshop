@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AddOnRegData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ SlientInstallation="" SlientUpgrade="" Partnernmsp="mtcsysnm"
+SchemaVersion="3.0"
+ Type="ServiceLayerScript" OnDemand="" OnPremise=""
+ExtName="MyScriptEngineExtension"
+ ExtVersion="1.03" Contdata="sa" Partner="NS" DBType="HANA" ClientType="S">
+ <ServiceLayerScripts>
+	<Script Name="MyOrderEntity" FileName="MyOrderEntity_Script.js"></Script>
+	<Script Name="MyOrderAndInvoiceEntity" FileName="MyOrderAndInvoiceEntity_Script.js"></Script> </ServiceLayerScripts>
+ <XApps>
+	<XApp Name="" Path="" FileName="" />
+ </XApps>
+</AddOnRegData>
