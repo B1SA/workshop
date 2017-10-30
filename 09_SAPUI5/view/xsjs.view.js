@@ -20,8 +20,8 @@ createContent: function(oController) {
 	oItemLead.setText("L");
 	oComboBox1.addItem(oItemLead);
 
-	var oItemVendor = new sap.ui.core.ListItem("Vendor");
-	oItemVendor.setText("V");
+	var oItemVendor = new sap.ui.core.ListItem("Supplier");
+	oItemVendor.setText("S");
 	oComboBox1.addItem(oItemVendor);
 
 	//Create ComboBox for top records
