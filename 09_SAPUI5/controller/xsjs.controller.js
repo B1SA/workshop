@@ -18,7 +18,7 @@ onCompleteCall: function(result) {
 	var oTable = sap.ui.getCore().byId("idBPList");
 	var colItems = sap.ui.getCore().byId("colBP");
 
-	// Create a model to Load the XSOData
+	// Create a model to Load the XSJS Json content
 	var oModelBP = new sap.ui.model.json.JSONModel();
 
 	//Load result data set to the model
@@ -27,7 +27,7 @@ onCompleteCall: function(result) {
 	// Attach the loaded model to the table 
 	oTable.setModel(oModelBP);
 
-	// Bind the table to an specific oData service
+	// Bind the table the JSON content
 	oTable.bindItems("/", colItems);
 
 },
