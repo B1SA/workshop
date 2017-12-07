@@ -52,7 +52,7 @@ function POST() {
     var dataSrvRes = slContext.Orders.add(order);
     // Add operation failed
     if (!dataSrvRes.isOK()) {
-        return http.response.send(dataSrvRes.status, res.body);
+        return http.response.send(dataSrvRes.status, dataSrvRes.body);
     }
     // Add operation successfully executed
     else {
