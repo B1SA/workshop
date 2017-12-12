@@ -1,4 +1,4 @@
-slLib = $.import("<Path to B1SLLogic.xsjslib>","B1SLLogic"); 
+var slLib = $.import("<Path to B1SLLogic.xsjslib>","B1SLLogic"); 
 
 var output = {};
 var UserName = "manager";
