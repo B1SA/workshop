@@ -74,22 +74,16 @@ function SLLogin(body, sessionID, routeID)
     return callServiceLayer(path, $.net.http.POST, body, sessionID, routeID);
 }
 
-function GetApprovalRequest(appReq, sessionID, routeID)
+function GetOrders(appReq, sessionID, routeID)
 {
-    var path = B1SLAddress + "ApprovalRequests("+appReq+")";
+    var path = B1SLAddress + "Orders("+appReq+")";
     
     return callServiceLayer(path, $.net.http.GET, null, sessionID, routeID);
 }
 
-function ApproveRejectRequest(body, sessionID, routeID)
+function createBusinessPartner(body, sessionID, routeID)
 {
-    var path = B1SLAddress + "ApprovalRequestsService_UpdateRequest";
-    
-    
+    var path = B1SLAddress + "BusinessPartners";
+     
     return callServiceLayer(path, $.net.http.POST, body, sessionID, routeID);
 }
-
-
-
-
-
