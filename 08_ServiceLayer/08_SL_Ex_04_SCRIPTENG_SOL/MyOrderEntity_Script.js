@@ -30,10 +30,10 @@ var Order = require('EntityType/Document.js');
  *  }
  */
 function POST() {
-	var responseBody = "";
+    var responseBody = "";
     
     // Check the http request body  
-	var jsonObj = http.request.getJsonObj();
+    var jsonObj = http.request.getJsonObj();
     if (!jsonObj) {
         throw http.ScriptException(http.HttpStatus.HTTP_BAD_REQUEST, "fail to get the content of JSON format from the request payload");
     }
@@ -69,7 +69,8 @@ function POST() {
  * 
  */
 function GET() {
-
+    var responseBody = "";
+	
     // Get the Order's key from the http request key value
     var key = http.request.getEntityKey();
     if (!key) {
@@ -106,7 +107,7 @@ function PATCH() {
     }
 
     // Check the http request body  
-	var jsonObj = http.request.getJsonObj();
+    var jsonObj = http.request.getJsonObj();
     if (!jsonObj) {
         throw http.ScriptException(http.HttpStatus.HTTP_BAD_REQUEST, "fail to get content of JSON format from the request payload");
     }
